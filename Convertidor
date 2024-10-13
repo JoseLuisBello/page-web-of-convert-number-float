@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de punto flotante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            text-align: center;
+        }
+        .container {
+            background-color: #232323;
+            padding: 30px;
+            width: 850px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgb(51, 255, 0);
+        }
+        h1 {
+            color: #dae100;
+            margin-bottom: 20px;
+        }
+        .text-verde {
+            color: rgb(0, 255, 0); /* Color verde */
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 15px;
+            border: 1px solid #767676;
+        }
+        .firma, .exponente, .mantisa {
+            background-color: #66ff01;
+            text-align: center;
+            padding: 10px;
+        }
+        .input-box {
+            text-align: left;
+            margin: 30px 0;
+        }
+        input[type="text"], input[type="button"] {
+            padding: 12px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="button"] {
+            background-color: #66ff01;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            width: auto;
+            margin-right: 10px;
+        }
+        input[type="button"]:hover {
+            background-color: #66ff01;
+        }
+        .checkbox-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .checkbox-grid input[type="checkbox"] {
+            margin: 5px;
+        }
+        .seccion-representacion {
+            display: none;
+            margin-top: 20px; /* Espaciado para la sección de representación */
+            border-top: 1px solid #616161; /* Agregar un borde superior para separación */
+            padding-top: 20px; /* Padding para espaciado */
+        }
+        .caja-representacion {
+            margin: 10px 0; /* Margen para cajas de resultados individuales */
+        }
+        .footer {
+            text-align: left;
+            font-size: 12px;
+            color: rgb(105, 242, 0);
+            margin-top: 20px; /* Margen para separación del pie de página */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Convertidor de punto flotante</h1>
+        <p class="text-verde">Esta página le permite convertir entre la representación decimal de un número y el formato binario.</p>
+        
+        <table>
+            <tr>
+                <td class="firma">Firma</td>
+                <td class="exponente">Exponente</td>
+                <td class="mantisa">Mantisa</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="checkbox-grid">
+                        <input type="checkbox" id="firma" onclick="actualizarDesdeCheckboxes()">
+                    </div>
+                </td>
+                <td>
+                    <div class="checkbox-grid">
+                        <input type="checkbox" id="exp7" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="exp6" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="exp5" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="exp4" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="exp3" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="exp2" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="exp1" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="exp0" onclick="actualizarDesdeCheckboxes()"> 
+                    </div>
+                </td>
+                <td>
+                    <div class="checkbox-grid">
+                        <input type="checkbox" id="mant22" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant21" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant20" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant19" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant18" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant17" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant16" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant15" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant14" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant13" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant12" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant11" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant10" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant9" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant8" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant7" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant6" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant5" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant4" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant3" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant2" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant1" onclick="actualizarDesdeCheckboxes()"> 
+                        <input type="checkbox" id="mant0" onclick="actualizarDesdeCheckboxes()"> 
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="input-box">
+            <label class="text-verde" for="decimal">Representación decimal:</label>
+            <input type="text" id="decimal" placeholder="0" oninput="actualizarDesdeDecimal()">
+        </div>
+
+        <div style="display: flex; justify-content: center;">
+            <input type="button" value="Confirmar" onclick="confirmarEntrada()">
+            <input type="button" value="Reiniciar" onclick="reiniciarCampos()"> <!-- Botón Reiniciar -->
+        </div>
+
+        <!-- Esta sección se hace visible después de hacer clic en "Confirmar" -->
+        <div id="seccionRepresentacion" class="seccion-representacion">
+            <div class="caja-representacion">
+                <label class="text-verde" for="float">Valor realmente almacenado en float:</label>
+                <input type="text" id="float" placeholder="0" readonly>
+            </div>
+
+            <div class="caja-representacion">
+                <label class="text-verde" for="error">Error debido a la conversión:</label>
+                <input type="text" id="error" placeholder="0" readonly>
+            </div>
+
+            <div class="caja-representacion">
+                <label class="text-verde" for="binario">Representación binaria:</label>
+                <input type="text" id="binario" placeholder="00000000000000000000000" readonly>
+            </div>
+
+            <div class="caja-representacion">
+                <label class="text-verde" for="hexadecimal">Representación hexadecimal:</label>
+                <input type="text" id="hexadecimal" placeholder="00000000" readonly>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                ! Programa realizado por José Luis Ramos Bello del 502-A de Ingenieria en Computación.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function convertirFloatAIEEE754(floatNum) {
+            let buffer = new ArrayBuffer(4);
+            let view = new Float32Array(buffer);
+            view[0] = floatNum;
+            let bits = '';
+            let uint32View = new Uint32Array(buffer);
+            for (let i = 31; i >= 0; i--) {
+                bits += (uint32View[0] >> i) & 1;
+            }
+            let firma = bits[0];
+            let exponente = bits.slice(1, 9);
+            let mantisa = bits.slice(9, 32);
+            return { firma, exponente, mantisa, bits };
+        }
+
+        function convertirBitsAFloat(bits) {
+            let buffer = new ArrayBuffer(4);
+            let uint32View = new Uint32Array(buffer);
+            let value = parseInt(bits, 2);
+            uint32View[0] = value;
+            return new Float32Array(buffer)[0];
+        }
+
+        function actualizarDesdeDecimal() {
+            let decimal = parseFloat(document.getElementById('decimal').value);
+            if (!isNaN(decimal)) {
+                let { firma, exponente, mantisa, bits } = convertirFloatAIEEE754(decimal);
+                mostrarRepresentacion(bits, firma, exponente, mantisa, decimal); // Pasar el decimal aquí
+            }
+        }
+
+        function mostrarRepresentacion(bits, firma, exponente, mantisa, decimal) {
+            // Mostrar valores en los checkboxes
+            document.getElementById('firma').checked = (firma === '1');
+            for (let i = 0; i < 8; i++) {
+                document.getElementById('exp' + (7 - i)).checked = (exponente[i] === '1');
+            }
+            for (let i = 0; i < 23; i++) {
+                document.getElementById('mant' + (22 - i)).checked = (mantisa[i] === '1');
+            }
+
+            // Mostrar representación en bits
+            let valorAlmacenado = convertirBitsAFloat(bits).toFixed(10);
+            document.getElementById('float').value = valorAlmacenado;
+            document.getElementById('error').value = Math.abs(decimal - parseFloat(valorAlmacenado)).toFixed(10); // Calcular el error sin signo
+            document.getElementById('binario').value = bits;
+            document.getElementById('hexadecimal').value = parseInt(bits, 2).toString(16).padStart(8, '0').toUpperCase();
+
+            // Mostrar la sección de representación
+            document.getElementById('seccionRepresentacion').style.display = 'block';
+        }
+
+        function reiniciarCampos() {
+            document.getElementById('decimal').value = '';
+            document.getElementById('seccionRepresentacion').style.display = 'none';
+
+            // Reiniciar todos los checkboxes
+            document.getElementById('firma').checked = false;
+            for (let i = 0; i < 8; i++) {
+                document.getElementById('exp' + i).checked = false;
+            }
+            for (let i = 0; i < 23; i++) {
+                document.getElementById('mant' + i).checked = false;
+            }
+
+            // Reiniciar campos de salida
+            document.getElementById('float').value = '';
+            document.getElementById('error').value = '';
+            document.getElementById('binario').value = '';
+            document.getElementById('hexadecimal').value = '';
+        }
+
+        function confirmarEntrada() {
+            // Aquí puedes manejar cualquier lógica adicional cuando se confirme la entrada.
+        }
+
+        function actualizarDesdeCheckboxes() {
+            // Implementar lógica para actualizar el input decimal desde los checkboxes si es necesario.
+        }
+    </script>
+</body>
+</html>
